@@ -19,11 +19,14 @@ router.delete("/user/:id", userHandler.deleteUser);
 // Role routes
 router.post("/role", roleHandler.create);
 router.get("/role", roleHandler.getList);
+router.delete('/role/:id', roleHandler.deleteRole);
+router.put('/role/:id', roleHandler.updateRole);
 
 // Order routes
 router.post("/order", jwtAuth, orderHandler.create);
 router.get("/order", authenticatePassportJwt(), orderHandler.getList);
 router.get("/order/:id", authenticatePassportJwt(), orderHandler.getOneByOrderId);
-router.put('/orders/:id', orderHandler.update);
+router.delete("/order/:id", orderHandler.deleteOrder);
+router.put("/order/:id", orderHandler.updateOrder);
 
 module.exports = router;

@@ -13,10 +13,6 @@ connectDB();
 app.use(initializePassport());
 app.use('/digistar', router);
 
-app.get('/some-route', (req, res) => {
-  res.status(200).json({ message: 'Success' });
-});
-
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });

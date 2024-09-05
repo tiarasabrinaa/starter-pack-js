@@ -29,4 +29,25 @@ const getList = async () => {
     }
 }
 
-module.exports = { create, getList};
+// Use case to delete a role by ID
+const deleteRole = async (roleId) => {
+    try {
+        const result = await repositories.deleteOneById(roleId);
+        return result;
+    } catch (error) {
+        throw new Error('Failed to delete user');
+    }
+  };
+
+  async function updateOne(updateData) {
+    try {
+      const roleId = updateData.role_id;
+      const updatedRole = await repositories.updateOne(roleId, updateData);
+      return updatedRole;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  }
+
+module.exports = { create, getList, deleteRole, updateOne };

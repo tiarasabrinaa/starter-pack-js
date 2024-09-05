@@ -82,7 +82,7 @@ async function updateOne(userId, updateData) {
 
 const deleteOneById = async (userId) => {
   try {
-      const result = await User.deleteOne({ _id: userId });
+      const result = await User.deleteOne({ user_id: userId });
       return result;
   } catch (error) {
       console.error('Error deleting user:', error);

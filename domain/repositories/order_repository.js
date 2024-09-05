@@ -39,18 +39,35 @@ async function findAll() {
   }
 }
 
-async function update (orderId, updateData) {
+async function updateOne(orderId, updateData) {
   try {
-    const updatedOrder = await Order.findOneAndUpdate(
-      { order_id: orderId },
-      updateData,
-      { new: true, runValidators: true } // Options: return the modified document, run validators
-    );
+    const existingOrder = await Order.findOne({ order_id: orderId });
+    if (!existingOrder) {
+      throw new Error('Order not found');
+    }
+
+    delete updateData._id;
+    Object.assign(existingOrder, updateData);
+
+    // Set the updated_at field to the current time
+    existingOrder.updated_at = new Date();
+
+    const updatedOrder = await existingOrder.save();
     return updatedOrder;
   } catch (error) {
-    console.error('Error updating order:', error);
+    console.error('Error updating Order:', error);
     throw error;
   }
 }
 
-module.exports = { create, getOneByOrderId, findAll, update };
+const deleteOneById = async (orderId) => {
+  try {
+      const result = await Order.deleteOne({ order_id: orderId });
+      return result;
+  } catch (error) {
+      console.error('Error deleting order:', error);
+      throw error;
+  }
+};
+
+module.exports = { create, getOneByOrderId, findAll, deleteOneById, updateOne };
