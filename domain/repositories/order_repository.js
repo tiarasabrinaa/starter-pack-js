@@ -42,8 +42,9 @@ async function findAll() {
 async function updateOne(orderId, updateData) {
   try {
     const existingOrder = await Order.findOne({ order_id: orderId });
+    
     if (!existingOrder) {
-      throw new Error('Order not found');
+      return -1;
     }
 
     delete updateData._id;

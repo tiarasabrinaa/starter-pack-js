@@ -45,7 +45,7 @@ async function update(req, res) {
     const orderId = req.params.id;
     const updateData = req.body;
     const updatedOrder = await orderUsecase.update(orderId, updateData);
-    if (!updatedOrder) {
+    if (updatedOrder === -1) {
       return res.status(404).json({ message: 'Order not found' });
     }
     res.json({ message: 'Order updated successfully', order: updatedOrder });
@@ -72,16 +72,4 @@ async function deleteOrder(req, res) {
   }
 }
 
-async function updateOrder(req, res) {
-  try {
-    const orderId = req.params.id;
-    const updateData = req.body;
-    const updatedOrder = await orderUsecase.updateOne({ order_id: orderId, ...updateData });
-    res.json({ message: "Order updated successfully", order: updatedOrder });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Internal Server Error', message: error.message });
-  }
-}
-
-module.exports = { create, getList, getOneByOrderId, update, deleteOrder, updateOrder };
+module.exports = { create, getList, getOneByOrderId, update, deleteOrder };

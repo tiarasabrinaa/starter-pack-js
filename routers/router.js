@@ -27,6 +27,6 @@ router.post("/order", jwtAuth, orderHandler.create);
 router.get("/order", authenticatePassportJwt(), orderHandler.getList);
 router.get("/order/:id", authenticatePassportJwt(), orderHandler.getOneByOrderId);
 router.delete("/order/:id", orderHandler.deleteOrder);
-router.put("/order/:id", orderHandler.updateOrder);
+router.put("/order/:id", orderHandler.update);
 
 module.exports = router;
